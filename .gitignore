@@ -1,4 +1,5 @@
 pkg
+bin
 src/golang.org
 src/github.com/derekparker
 src/github.com/mitchellh

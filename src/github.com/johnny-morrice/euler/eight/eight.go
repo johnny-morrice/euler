@@ -23,16 +23,16 @@ func euler8(digits string, factcount int) int64 {
     // Dynamic programming
     maxi := digcount - factcount
     for i := 0; i < maxi; i++ {
-        for j := 1; j < factcount && i + j < digcount; j++ {
-            products[i][j] = products[i][j - 1] * products[0][i + j]
+        for j := 1; j < factcount; j++ {
+            products[i][j] = products[i][j - 1] * products[i + j][0]
         }
     }
 
     // Find max
-    top := products[factcount]
-    max := top[0]
-    for j := 1; j < digcount - factcount; j++ {
-        prod := top[j]
+    max := int64(0)
+    maxj := factcount - 1
+    for i := 0; i < maxi; i++ {
+        prod := products[i][maxj]
         if prod > max {
             max = prod
         }

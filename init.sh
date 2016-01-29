@@ -1,3 +1,4 @@
-export GOPATH="/Users/jmorrice/workspace/local/euler/"
+gvm use 1.5 > /dev/null
+export GOPATH="/home/jmorrice/workspace/local/euler/"
 export PATH="$GOPATH/bin:$PATH"
 export GO15VENDOREXPERIMENT=1

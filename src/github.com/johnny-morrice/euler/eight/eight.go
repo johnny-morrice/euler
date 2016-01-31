@@ -3,13 +3,37 @@ package main
 import (
     "fmt"
     "strconv"
+    "flag"
 )
 
-func main() {
-    fmt.Println(euler8(problem, 13))
+type args struct {
+    n int
+    all bool
+    digits string
 }
 
-func euler8(digits string, factcount int) int64 {
+func main() {
+    args := readArgs()
+    products := factorMatrix(args.digits, args.n)
+    if args.all {
+        for i := 0; i < args.n; i++ {
+            fmt.Println(max(products, i))
+        }
+    } else {
+        fmt.Println(max(products, args.n - 1))
+    }
+}
+
+func readArgs() args {
+    params := args{}
+    flag.IntVar(&params.n, "factcount", 13, "Count of factors")
+    flag.StringVar(&params.digits, "digits", problem, "Digit string")
+    flag.BoolVar(&params.all, "all", false, "Print max factors for all n < factcount")
+    flag.Parse()
+    return params
+}
+
+func factorMatrix(digits string, factcount int) [][]int64 {
     // Prepare matrix
     digcount := len(digits)
     products := make([][]int64, digcount)
@@ -28,11 +52,15 @@ func euler8(digits string, factcount int) int64 {
         }
     }
 
+    return products
+}
+
+func max(products [][]int64, factcount int) int64 {
     // Find max
+    maxi := len(products) - factcount
     max := int64(0)
-    maxj := factcount - 1
     for i := 0; i < maxi; i++ {
-        prod := products[i][maxj]
+        prod := products[i][factcount]
         if prod > max {
             max = prod
         }

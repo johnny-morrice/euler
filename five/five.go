@@ -9,19 +9,19 @@ func main() {
 	n := flag.Int("n", 10, "The maximum factor")
 	flag.Parse()
 
-	fmt.Println(Euler5(*n))
+	fmt.Println(Euler5(int64(*n)))
 } 
 
-func Euler5(top int) int {
+func Euler5(top int64) int64 {
 	primes := primesunder(top)
 
-	maxpows := make([]int, len(primes))
+	maxpows := make([]int64, len(primes))
 
-	for i := 2; i <= top; i++ {
+	for i := int64(2); i <= top; i++ {
 		for j, p := range primes {
-			rem := 0
+			rem := int64(0)
+			pow := int64(-1)
 			div := i
-			pow := -1
 
 			for ; rem == 0 ; pow++ {
 				rem = div % p
@@ -36,7 +36,7 @@ func Euler5(top int) int {
 		}
 	}
 
-	product := 1
+	product := int64(1)
 	for i, p := range primes {
 		pow := maxpows[i]
 
@@ -46,23 +46,23 @@ func Euler5(top int) int {
 	return product
 }
 
-func intpow(n int, m int) int {
+func intpow(n int64, m int64) int64 {
 	if m == 0 {
 		return 1
 	}
 
 	pow := n
-	for i := 0; i < m - 1; i++ {
+	for i := int64(0); i < m - 1; i++ {
 		pow *= n
 	}
 
 	return pow
 }
 
-func primesunder(max int) []int {
-	primes := []int{2, 3}
+func primesunder(max int64) []int64 {
+	primes := []int64{2, 3}
 
-	for i := 4; i < max; i++ {
+	for i := int64(4); i < max; i++ {
 		isprime := true
 		for _, p := range primes {
 			if i % p == 0 {

@@ -33,12 +33,6 @@ func readArgs() args {
     return params
 }
 
-func Euler8(digits string, factcount int) int64 {
-    products := factorMatrix(digits, factcount)
-
-    return max(products, factcount - 1)
-}
-
 func factorMatrix(digits string, factcount int) [][]int64 {
     // Prepare matrix
     digcount := len(digits)
